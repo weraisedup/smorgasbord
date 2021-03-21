@@ -33,7 +33,7 @@ jobs:
           # GitHub token to push Docker image to GitHub Packages
           github-token: ${{ secrets.CR_PAT }}
           # Docker Image name
-          image-name: ghcr.io/weraisedup/smorgasbord-server
+          image-name: ${{ github.sha }}-server
           dockerfile-path: ./server/    
 
       - name: Publish Client Docker Image to GitHub Registry
@@ -44,5 +44,5 @@ jobs:
           # GitHub token to push Docker image to GitHub Packages
           github-token: ${{ secrets.CR_PAT }}
           # Docker Image name
-          image-name: ghcr.io/weraisedup/smorgasbord-client
+          image-name: ${{ github.sha }}-client
           dockerfile-path: ./client/
