@@ -2,7 +2,7 @@ FROM node:14.16.0-alpine
 
 CMD apk update && apk upgrade && apk add bash
 
-WORKDIR /usr/app/client
+WORKDIR /usr/app/server
 COPY package*.json ./
 RUN npm ci -qy
 
