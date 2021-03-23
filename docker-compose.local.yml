@@ -4,17 +4,21 @@ services:
   server:
     build:
       context: ./server/
-    image: ghcr.io/weraisedup/smorgasbord-server:latest
+    volumes:
+      - ./server/:/usr/app/server
+      - /usr/app/node_modules
     ports:
       - "8080:8080"
 #     env_file: ./server/.env # TODO - uncomment this to auto-load your .env file!
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
 
   client:
     build:
       context: ./client/
-    image: ghcr.io/weraisedup/smorgasbord-client:latest
+    volumes:
+      - ./client/:/usr/app/client
+      - /usr/app/node_modules
     depends_on:
       - server
     ports:
