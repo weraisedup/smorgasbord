@@ -1,0 +1,8 @@
+.taskcard {
+  height: 5vh;
+  width: 100%;
+  margin: 10px 5px 10px 5px;
+  background-color: salmon;
+  color: blue;
+  text-align: center;
+}

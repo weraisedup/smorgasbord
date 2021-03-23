@@ -1,23 +1,30 @@
 import React, { Component } from 'react'
 
 import Collum from '../../components/Collum/Collum'
+import classes from './TaskBuilder.module.css'
 
 class TaskBuilder extends Component {
 
   state = {
-    tasks: {
-      salad: 2,
-      bacon: 1,
-      cheese: 2,
-      meat: 1
-    }
+    tasks: [
+      "one",
+      "two",
+      "boogers",
+      "sniffles"
+    ],
+    basks:  fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
   }
+
+  // tasks = () => this.state.basks.map( task => {
+  //   return task.title
+  // })
 
   render () {
     return (
-      <div>
+      <div className={classes.Container}>
 
-      <Collum ingredients={this.state.tasks} />
+      <Collum tasksArray={this.state.tasks} />
 
       </div>
     )
