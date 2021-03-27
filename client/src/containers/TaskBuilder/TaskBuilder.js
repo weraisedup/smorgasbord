@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Collum from '../../components/Collum/Collum'
+import Column from '../../components/Column/Column'
 import classes from './TaskBuilder.module.css'
 
 class TaskBuilder extends Component {
@@ -24,7 +24,7 @@ class TaskBuilder extends Component {
     return (
       <div className={classes.Container}>
 
-      <Collum tasksArray={this.state.tasks} />
+      <Column tasksArray={this.state.tasks} />
 
       </div>
     )

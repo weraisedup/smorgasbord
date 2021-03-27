@@ -1,20 +1,20 @@
 import React from 'react'
-import classes from './Collum.module.css'
+import classes from './Column.module.css'
 
 import Task from './Task/Task'
 
-const collum = (props) => {
+const Column = (props) => {
   let taskList = props.tasksArray
     .map(task => {
       return  <Task task={task}/>
     })
 
   return (
-    <div className={classes.Collum}>
+    <div className={classes.Column}>
     <h1> Listy </h1>
       {taskList}
     </div>
   )
 }
 
-export default collum
+export default Column
