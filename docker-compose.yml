@@ -1,21 +1,58 @@
-version: '2'
+version: '3.8'
 services:
-
-  server:
-    build:
-      context: ./server/
-    image: ghcr.io/weraisedup/smorgasbord-server:latest
+  mongo:
+    container_name: mongo-db
+    image: mongo:bionic
     ports:
-      - "8080:8080"
-#     env_file: ./server/.env # TODO - uncomment this to auto-load your .env file!
-    environment:
-      - NODE_ENV=production
+      - 27017:27017
+    expose:
+      - 27017
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - default-network
 
-  client:
+  backend:
+    container_name: node-backend
     build:
-      context: ./client/
-    image: ghcr.io/weraisedup/smorgasbord-client:latest
+      context: ./backend
+    image: ghcr.io/weraisedup/node-backend:latest
     depends_on:
-      - server
+      - mongo
     ports:
-      - "3000:3000"
+      - 8080:8080
+    expose:
+      - 8080
+    env_file: ./backend/prod.be.env
+    volumes:
+      - ./backend/src:/usr/app/src
+      - /usr/app/node_modules
+    networks:
+      - default-network
+
+  frontend:
+    container_name: react-frontend
+    build:
+      context: ./frontend
+    image: ghcr.io/weraisedup/react-frontend:latest
+    depends_on:
+      - backend
+    ports:
+      - 5000:5000
+    expose:
+      - 5000
+    restart: always
+    env_file: ./frontend/prod.fe.env
+    volumes:
+      - ./frontend/src:/usr/app/src
+      - /usr/app/node_modules
+    networks:
+      - default-network
+
+networks:
+  default-network:
+
+volumes:
+    mongo-data:
+      driver: local
