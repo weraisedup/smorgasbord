@@ -34,17 +34,17 @@ jobs:
         name: Build and push SERVER...
         uses: docker/build-push-action@v2
         with:
-          context: ./server/
+          context: ./backend
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/weraisedup/smorgasbord-server:latest
+            ghcr.io/weraisedup/node-backend:latest
       -
         name: Build and push CLIENT...
         uses: docker/build-push-action@v2
         with:
-          context: ./client/
+          context: ./frontend
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/weraisedup/smorgasbord-client:latest
+            ghcr.io/weraisedup/react-frontend:latest
