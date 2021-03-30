@@ -1,25 +1,58 @@
-version: '2'
+version: '3.8'
 services:
-
-  server:
-    build:
-      context: ./server/
-    volumes:
-      - ./server/:/usr/app/server
-      - /usr/app/node_modules
+  mongo:
+    container_name: mongo-db
+    image: mongo:bionic
     ports:
-      - "8080:8080"
-#     env_file: ./server/.env # TODO - uncomment this to auto-load your .env file!
-    environment:
-      - NODE_ENV=development
-
-  client:
-    build:
-      context: ./client/
+      - 27017:27017
+    expose:
+      - 27017
+    restart: always
     volumes:
-      - ./client/:/usr/app/client
-      - /usr/app/node_modules
+      - mongo-data:/data/db
+    networks:
+      - default-network
+
+  backend:
+    container_name: node-backend
+    build:
+      context: ./backend
     depends_on:
-      - server
+      - mongo
     ports:
-      - "3000:3000"
+      - 8080:8080
+    expose:
+      - 8080
+    env_file: ./backend/.env
+    volumes:
+      - ./backend/src:/usr/app/src
+      - /usr/app/node_modules
+    networks:
+      - default-network
+
+  frontend:
+    container_name: react-frontend
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - 5000:5000
+    expose:
+      - 5000
+    restart: always
+    env_file: ./frontend/.env
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./frontend/src:/usr/app/src
+      - /usr/app/node_modules
+    networks:
+      - default-network
+
+networks:
+  default-network:
+
+volumes:
+    mongo-data:
+      driver: local

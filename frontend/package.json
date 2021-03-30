@@ -1,6 +1,6 @@
 {
-  "name": "smorgasbord-app",
-  "version": "1.0.0",
+  "name": "app",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
