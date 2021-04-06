@@ -4,15 +4,17 @@ import classes from './Column.module.css'
 import Task from './Task/Task'
 
 const Column = (props) => {
-  let taskList = props.tasksArray
-    .map(task => {
-      return  <Task task={task}/>
-    })
+
+  let tasksList = props.tasksArray.map(task => {
+      return <li><Task title={task}/></li>
+  })
 
   return (
     <div className={classes.Column}>
     <h1> Listy </h1>
-      {taskList}
+    <ul>
+    {tasksList}
+    </ul>
     </div>
   )
 }
