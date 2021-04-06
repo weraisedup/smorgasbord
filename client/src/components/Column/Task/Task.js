@@ -5,7 +5,8 @@ const task = (props) => {
 
   return (
     <div className={classes.taskcard}>
-<p> {props.task} </p>
+<p> {props.title} </p>
+<p> {props.body} </p>
     </div>
   )
 }
