@@ -1,13 +1,13 @@
 import React from 'react'
 
 import classes from './Layout.module.css'
+import NavBar from '../UI/Nav/Nav'
 
 const layout = ( props ) => (
   <div>
 
-  <nav> toolbar, sidebar, backdrop </nav>
+  <NavBar title={props.BoardName}/>
   <main className={classes.Content}>
-  <h1> This is the CONTENT </h1>
   { props.children }
   </main>
 

@@ -1,22 +1,26 @@
-import React from 'react'
-import classes from './Column.module.css'
+import React from "react";
+import classes from "./Column.module.css";
+import { Droppable } from "react-beautiful-dnd";
 
-import Task from './Task/Task'
+import Task from "./Task/Task";
 
 const Column = (props) => {
-
-  let tasksList = props.tasksArray.map(task => {
-      return <li><Task title={task}/></li>
-  })
-
   return (
     <div className={classes.Column}>
-    <h1> Listy </h1>
-    <ul>
-    {tasksList}
-    </ul>
-    </div>
-  )
-}
+      <h1> {props.column.title} </h1>
 
-export default Column
+      <Droppable droppableId={props.column.id}>
+        {(provided) => (
+          <ul {...provided.droppableProps} ref={provided.innerRef}>
+            {props.tasks.map((task, index) => (
+              <Task key={task.id} task={task} index={index} />
+            ))}
+            {provided.placeholder}
+          </ul>
+        )}
+      </Droppable>
+    </div>
+  );
+};
+
+export default Column;

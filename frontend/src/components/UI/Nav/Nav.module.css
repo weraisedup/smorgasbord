@@ -1,0 +1,26 @@
+.navOptions {
+    background-color: purple;
+    height: 5vh;
+    width: 100vw;
+    /* position: fixed; */
+    /* top: 0px; */
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+
+.navOptions h1 {
+    color: limegreen;
+}
+
+.navOptions ul {
+    border: 1px solid red;
+
+}
+
+.navOptions ul li {
+    color: yellow;
+    list-style: none;
+    display: inline-block;
+    margin-left: 40px;
+}
