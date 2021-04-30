@@ -1,7 +1,7 @@
 .Column {
-  height: 100%;
   padding: 10px;
   outline: 3px solid green;
+  height: 10vh;
   width: 30vw;
 }
 
@@ -10,11 +10,7 @@
   padding: 0;
 }
 
-.Column ul li{
-  list-style-type: none;
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
+
 
 .DragOverColumn {
   height: 100%;

@@ -1,16 +1,21 @@
 import React, { Component } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import Column from "../../components/Column/Column";
-import classes from "./TaskBuilder.module.css";
 import InitData from "./InitData";
-import Wrapper from '../../helpers/Wrapper'
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  margin: 10px;
+  margin-top: calc(10px + 5vh);
+`;
 
 class TaskBuilder extends Component {
   state = InitData;
 
   onDragEnd = result => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     if (!destination) {
       return;
@@ -21,6 +26,19 @@ class TaskBuilder extends Component {
       destination.index === source.index
     ) {
       return;
+    }
+
+    if (type === 'column') {
+      const newColumnOrder = Array.from(this.state.columnOrder);
+      newColumnOrder.splice(source.index, 1);
+      newColumnOrder.splice(destination.index, 0, draggableId);
+
+      const newState = {
+        ...this.state,
+        columnOrder: newColumnOrder
+      }
+      this.setState(newState)
+      return
     }
 
     const start = this.state.columns[source.droppableId];
@@ -48,7 +66,7 @@ class TaskBuilder extends Component {
       return;
     }
 
-    // Moving from one list to another
+    // across collums
     const startTaskIds = Array.from(start.taskIds);
     startTaskIds.splice(source.index, 1);
     const newStart = {
@@ -74,21 +92,32 @@ class TaskBuilder extends Component {
     this.setState(newState);
   };
 
+  // TO DO: Set a timeout after moves to update the current state back to DB
+
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-{this.state.columnOrder.map(columnId => {
+        <Droppable droppableId="Board-Columns" direction="horizontal" type="column">
+          { provided => (
+                    <Container
+                    {...provided.droppableProps}
+                    ref = {provided.innerRef}
+                    >
+
+{this.state.columnOrder.map((columnId, index ) => {
           const column = this.state.columns[columnId];
           const tasks = column.taskIds.map(
             taskId => this.state.tasks[taskId],
           );
 
           return (
-            <div className={classes.Container}>
-              <Column key={column.id} column={column} tasks={tasks} />
-            </div>
+              <Column key={column.id} column={column} tasks={tasks} index={index} />
           );
         })}
+        {provided.placeholder}
+                    </Container>
+          )}
+                    </Droppable>
       </DragDropContext>
     );
   }
