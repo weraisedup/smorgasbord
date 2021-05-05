@@ -8,7 +8,8 @@ import styled from 'styled-components';
 const Container = styled.div`
   display: flex;
   margin: 10px;
-  margin-top: calc(10px + 5vh);
+  margin-top: calc(10px + 8vh);
+  height: 100%;
 `;
 
 class TaskBuilder extends Component {

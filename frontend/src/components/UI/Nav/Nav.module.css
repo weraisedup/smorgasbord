@@ -1,25 +1,27 @@
 .navOptions {
-    background-color: purple;
-    height: 5vh;
+    background-color:#804987;
+    height: 8vh;
     width: 100vw;
-    /* position: fixed; */
-    /* top: 0px; */
+    position: fixed;
+    top: 0px; 
     display: flex;
     flex-direction: row;
     margin-bottom: 30px;
+    flex: 0 1 auto;
 }
 
 .navOptions h1 {
-    color: limegreen;
+    margin-left: 10px;
+    color:White;
 }
 
 .navOptions ul {
     border: 1px solid red;
-
+    margin: 0px;
 }
 
 .navOptions ul li {
-    color: yellow;
+    color: #E3DEED;
     list-style: none;
     display: inline-block;
     margin-left: 40px;
